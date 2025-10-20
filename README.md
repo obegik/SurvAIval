@@ -43,13 +43,14 @@ Results will be saved in a report format in results folder
 
 All pipeline parameters are defined in config/config.yaml.
 You can modify these fields to analyze a different cancer type or immune metric:
+```yaml
 # -------- Global Config --------
 cancer_type: "COAD"          # TCGA cancer code (e.g., COAD, LUAD, BRCA, etc.)
 cancer_name: "Colorectal"    # Immune metric table name
 metric: "T_Dysfunction"      # Immune metric: T_Dysfunction, CTL_Cor, Risk, Risk_adj
 top_n: 500                   # Number of top immune genes to include
 outlier_z_threshold: 3       # PCA z-score cutoff for outlier removal
-
+```
 
 ##  Data Sources & References
 
