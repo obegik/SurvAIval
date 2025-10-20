@@ -1,0 +1,31 @@
+# Ignore Python cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Snakemake temp and metadata folders
+.snakemake/
+.snakemake/*
+
+# Ignore large result directories (they’ll be mounted at runtime)
+data/
+
+# Ignore local notebooks, logs, and config backups
+*.ipynb
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Ignore Git and local IDE files
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Ignore Mac/OSX system files
+Icon?
+.DS_Store
+.AppleDouble
+.LSOverride

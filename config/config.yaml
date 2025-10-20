@@ -1,0 +1,21 @@
+# -------- Global Config --------
+cancer_type: "COAD"               # TCGA cancer code (e.g. COAD, LUAD, etc.)
+cancer_name: "Colorectal"              # Full cancer name used in search queries
+metric: "T_Dysfunction"           # Options: T_Dysfunction, CTL_Cor, Risk, Risk_adj
+
+# -------- Directories --------
+data_dir: "data"
+results_dir: "results"
+scripts_dir: "scripts"
+
+# -------- External Files --------
+#expression_url: "https://toil-xena-hub.s3.us-east-1.amazonaws.com/download/tcga_RSEM_gene_tpm.gz"
+#clinical_url: "https://tcga-pancan-atlas-hub.s3.us-east-1.amazonaws.com/download/Survival_SupplementalTable_S1_20171025_xena_sp"
+scores_file: "data/all_scores.tsv"
+
+# -------- Analysis Parameters --------
+top_n: 500                        # Number of top genes to select for analysis
+outlier_z_threshold: 3           # Z-score threshold for PCA outlier detection
+
+# -------- SerpAPI --------
+serpapi_key: "f992519b303a0d170272cbf4fae5a16699d5eb2a1a349ad992ffb6da6f58ce72"  # Set to empty string "" if you won't run search step

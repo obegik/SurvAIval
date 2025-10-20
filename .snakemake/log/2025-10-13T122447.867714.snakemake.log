@@ -1,0 +1,40 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job             count
+------------  -------
+all                 1
+final_report        1
+total               2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 12:24:47 2025]
+localrule final_report:
+    input: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 6
+    reason: Updated input files: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 12:24:49 2025]
+Finished job 6.
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 12:24:49 2025]
+localrule all:
+    input: results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/km_PC1_split__COAD__T_Dysfunction.pdf, results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 0
+    reason: Input files updated by another job: results/final_report__COAD__T_Dysfunction.pdf
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 12:24:49 2025]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2025-10-13T122447.867714.snakemake.log

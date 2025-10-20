@@ -1,0 +1,81 @@
+configfile: "config/config.yaml"
+CANCER_TYPE = config["cancer_type"]
+METRIC = config["metric"]
+
+rule all:
+    input:
+        f"results/PC1_gene_loadings_annotated__{CANCER_TYPE}__{METRIC}.tsv",
+        f"results/PC1_top_gene_contributors_annotated__{CANCER_TYPE}__{METRIC}.pdf",
+        f"results/top_PC1_contributor_genes__{CANCER_TYPE}__{METRIC}.tsv",
+        f"results/km_PC1_split__{CANCER_TYPE}__{METRIC}.pdf",
+        #f"results/PC1_gene_summaries_SerpAPI__{CANCER_TYPE}__{METRIC}.txt"
+        f"results/final_report__{CANCER_TYPE}__{METRIC}.pdf",
+        
+rule data_loading:
+    output:
+        expr="results/expr__{cancer_type}.parquet",
+        clin="results/clinical__{cancer_type}.tsv"
+    script:
+        "scripts/data_loading.py"
+
+rule select_top_genes:
+    input:
+        scores="data/all_scores.tsv"
+    output:
+        top_genes="results/top_immune_genes__{cancer_type}__{metric}.tsv"
+    script:
+        "scripts/select_top_genes.py"
+
+rule subset_expression:
+    input:
+        expr="results/expr__{cancer_type}.parquet",
+        top_genes="results/top_immune_genes__{cancer_type}__{metric}.tsv"
+    output:
+        matrix="results/expr_topimmune__{cancer_type}__{metric}.parquet",
+        annotated="results/expr_topimmune_annotated__{cancer_type}__{metric}.parquet"
+    script:
+        "scripts/subset_expression.py"
+
+rule remove_outliers:
+    input:
+        matrix="results/expr_topimmune__{cancer_type}__{metric}.parquet",
+        clin="results/clinical__{cancer_type}.tsv"
+    output:
+        expr_clean="results/expr_topimmune_cleaned__{cancer_type}__{metric}.parquet",
+        clin_clean="results/clinical_cleaned__{cancer_type}__{metric}.tsv",
+        outliers="results/outliers__{cancer_type}__{metric}.tsv",
+        pca_plot="results/qc_plots/pca_outlier_detection__{cancer_type}__{metric}.pdf"
+    script:
+        "scripts/qc_outlier_removal.py"
+
+rule pca_km:
+    input:
+        expr="results/expr_topimmune_cleaned__{cancer_type}__{metric}.parquet",
+        clin="results/clinical_cleaned__{cancer_type}__{metric}.tsv"
+    output:
+        km_plot="results/km_PC1_split__{cancer_type}__{metric}.pdf",
+        loadings="results/PC1_gene_loadings__{cancer_type}__{metric}.tsv",
+        annotated="results/PC1_gene_loadings_annotated__{cancer_type}__{metric}.tsv",
+        contributors="results/top_PC1_contributor_genes__{cancer_type}__{metric}.tsv",
+        contrib_plot="results/PC1_top_gene_contributors_annotated__{cancer_type}__{metric}.pdf"
+    script:
+        "scripts/pc1_survival.py"
+
+rule google_summaries:
+    input:
+        contributors="results/top_PC1_contributor_genes__{cancer_type}__{metric}.tsv"
+    output:
+        summary="results/PC1_gene_summaries_HF__{cancer_type}__{metric}.txt"
+    script:
+        "scripts/gene_summary.py"
+
+rule final_report:
+    input:
+        km_plot="results/km_PC1_split__{cancer_type}__{metric}.pdf",
+        pc1_plot="results/PC1_top_gene_contributors_annotated__{cancer_type}__{metric}.pdf",
+        qc_plot="results/qc_plots/pca_outlier_detection__{cancer_type}__{metric}.pdf",
+        summary="results/PC1_gene_summaries_SerpAPI__{cancer_type}__{metric}.txt"
+    output:
+        report="results/final_report__{cancer_type}__{metric}.pdf"
+    script:
+        "scripts/generate_report.py"

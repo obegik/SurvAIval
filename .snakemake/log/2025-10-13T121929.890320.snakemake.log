@@ -1,0 +1,44 @@
+Assuming unrestricted shared filesystem usage.
+host: QY066DPX6V.crg.es
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                 count
+----------------  -------
+all                     1
+final_report            1
+google_summaries        1
+total                   3
+
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:19:29 2025]
+localrule google_summaries:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    jobid: 7
+    reason: Missing output files: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+RuleException:
+CalledProcessError in file "/Users/boguzhan/Desktop/tic_pipeline/Snakefile", line 70:
+Command 'set -euo pipefail;  /opt/miniconda3/envs/snakemake_env/bin/python3.13 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmpc3qvy3us.gene_summary.py' returned non-zero exit status 1.
+[Mon Oct 13 12:19:30 2025]
+Error in rule google_summaries:
+    message: None
+    jobid: 7
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Mon Oct 13 12:19:30 2025]
+Error in rule google_summaries:
+    message: None
+    jobid: 7
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+Complete log(s): /Users/boguzhan/Desktop/tic_pipeline/.snakemake/log/2025-10-13T121929.890320.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

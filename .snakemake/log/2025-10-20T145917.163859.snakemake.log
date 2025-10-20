@@ -1,0 +1,25 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count
+-------------------  -------
+all                        1
+gene_summary               1
+generate_report            1
+sementic_clustering        1
+total                      4
+
+Select jobs to execute...
+
+[Mon Oct 20 14:59:17 2025]
+rule gene_summary:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    jobid: 8
+    reason: Updated input files: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+/opt/miniconda3/envs/pipeline_az/bin/python3.10 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmpc5750oqt.gene_summary.py
+Terminating processes on user request, this might take some time.

@@ -1,0 +1,52 @@
+Assuming unrestricted shared filesystem usage.
+host: QY066DPX6V.crg.es
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job stats:
+job                 count
+----------------  -------
+all                     1
+final_report            1
+google_summaries        1
+total                   3
+
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:19:49 2025]
+localrule google_summaries:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    jobid: 7
+    reason: Missing output files: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:21:39 2025]
+Finished jobid: 7 (Rule: google_summaries)
+1 of 3 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:21:39 2025]
+localrule final_report:
+    input: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 6
+    reason: Missing output files: results/final_report__COAD__T_Dysfunction.pdf; Input files updated by another job: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt; Set of input files has changed since last execution
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:21:41 2025]
+Finished jobid: 6 (Rule: final_report)
+2 of 3 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:21:41 2025]
+localrule all:
+    input: results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/km_PC1_split__COAD__T_Dysfunction.pdf, results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 0
+    reason: Input files updated by another job: results/final_report__COAD__T_Dysfunction.pdf
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:21:41 2025]
+Finished jobid: 0 (Rule: all)
+3 of 3 steps (100%) done
+Complete log(s): /Users/boguzhan/Desktop/tic_pipeline/.snakemake/log/2025-10-13T121949.048637.snakemake.log

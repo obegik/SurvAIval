@@ -1,0 +1,140 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count
+-------------------  -------
+all                        1
+data_loading               1
+gene_summary               1
+generate_report            1
+pca_km                     1
+remove_outliers            1
+select_top_genes           1
+sementic_clustering        1
+subset_expression          1
+total                      9
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Mon Oct 20 15:17:15 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 5
+    reason: Code has changed since last execution
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:17:15 2025]
+localrule select_top_genes:
+    input: data/all_scores.tsv
+    output: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    jobid: 6
+    reason: Code has changed since last execution
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:18:05 2025]
+Finished job 6.
+1 of 9 steps (11%) done
+[Mon Oct 20 15:19:10 2025]
+Finished job 5.
+2 of 9 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:19:10 2025]
+localrule subset_expression:
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+    jobid: 4
+    reason: Input files updated by another job: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:19:18 2025]
+Finished job 4.
+3 of 9 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:19:18 2025]
+localrule remove_outliers:
+    input: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/clinical__COAD.tsv
+    output: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv, results/outliers__COAD__T_Dysfunction.tsv, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.png
+    jobid: 3
+    reason: Input files updated by another job: results/clinical__COAD.tsv, results/expr_topimmune__COAD__T_Dysfunction.parquet
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:20:03 2025]
+Finished job 3.
+4 of 9 steps (44%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:20:03 2025]
+localrule pca_km:
+    input: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv
+    output: results/km_PC1_split__COAD__T_Dysfunction.png, results/PC1_gene_loadings__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.png
+    jobid: 2
+    reason: Input files updated by another job: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:20:10 2025]
+Finished job 2.
+5 of 9 steps (56%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:20:10 2025]
+localrule gene_summary:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    jobid: 8
+    reason: Input files updated by another job: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:21:27 2025]
+Finished job 8.
+6 of 9 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:21:27 2025]
+localrule sementic_clustering:
+    input: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    output: results/semantic_clusters_stable__COAD__T_Dysfunction.png
+    jobid: 7
+    reason: Input files updated by another job: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:21:59 2025]
+Finished job 7.
+7 of 9 steps (78%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:21:59 2025]
+localrule generate_report:
+    input: results/km_PC1_split__COAD__T_Dysfunction.png, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.png, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.png, results/semantic_clusters_stable__COAD__T_Dysfunction.png, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/outliers__COAD__T_Dysfunction.tsv, results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 1
+    reason: Input files updated by another job: results/km_PC1_split__COAD__T_Dysfunction.png, results/semantic_clusters_stable__COAD__T_Dysfunction.png, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.png, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.png, results/outliers__COAD__T_Dysfunction.tsv, results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:22:01 2025]
+Finished job 1.
+8 of 9 steps (89%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 20 15:22:01 2025]
+localrule all:
+    input: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 0
+    reason: Input files updated by another job: results/final_report__COAD__T_Dysfunction.pdf
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:22:01 2025]
+Finished job 0.
+9 of 9 steps (100%) done
+Complete log: .snakemake/log/2025-10-20T151712.702371.snakemake.log

@@ -1,0 +1,54 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+google_summaries         1
+pca_km                   1
+remove_outliers          1
+select_top_genes         1
+subset_expression        1
+total                    8
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Wed Oct 15 13:36:18 2025]
+localrule select_top_genes:
+    input: data/all_scores.tsv
+    output: results/top_immune_genes__LUAD__T_Dysfunction.tsv
+    jobid: 5
+    reason: Missing output files: results/top_immune_genes__LUAD__T_Dysfunction.tsv
+    wildcards: cancer_type=LUAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Wed Oct 15 13:36:18 2025]
+localrule data_loading:
+    output: results/expr__LUAD.parquet, results/clinical__LUAD.tsv
+    jobid: 4
+    reason: Missing output files: results/expr__LUAD.parquet, results/clinical__LUAD.tsv
+    wildcards: cancer_type=LUAD
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule select_top_genes in file /app/Snakefile, line 21:
+Job 5  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+results/top_immune_genes__LUAD__T_Dysfunction.tsv (missing locally, parent dir not present)
+RuleException:
+CalledProcessError in file /app/Snakefile, line 19:
+Command 'set -euo pipefail;  /opt/conda/envs/snakemake_env/bin/python3.11 /app/.snakemake/scripts/tmpwp35m4qe.data_loading.py' returned non-zero exit status 1.
+[Wed Oct 15 13:41:08 2025]
+Error in rule data_loading:
+    jobid: 4
+    output: results/expr__LUAD.parquet, results/clinical__LUAD.tsv
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-10-15T133617.798770.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

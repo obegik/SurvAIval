@@ -1,0 +1,93 @@
+Assuming unrestricted shared filesystem usage.
+host: QY066DPX6V.crg.es
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+pca_km                   1
+remove_outliers          1
+subset_expression        1
+total                    6
+
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:04:48 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 4
+    reason: Forced execution
+    wildcards: cancer_type=COAD
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:09 2025]
+Finished jobid: 4 (Rule: data_loading)
+1 of 6 steps (17%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:06:09 2025]
+localrule subset_expression:
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+    jobid: 3
+    reason: Missing output files: results/expr_topimmune__COAD__T_Dysfunction.parquet; Input files updated by another job: results/expr__COAD.parquet
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:10 2025]
+Finished jobid: 3 (Rule: subset_expression)
+2 of 6 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:06:10 2025]
+localrule remove_outliers:
+    input: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/clinical__COAD.tsv
+    output: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv, results/outliers__COAD__T_Dysfunction.tsv, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf
+    jobid: 2
+    reason: Missing output files: results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv; Input files updated by another job: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/clinical__COAD.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:14 2025]
+Finished jobid: 2 (Rule: remove_outliers)
+3 of 6 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:06:14 2025]
+localrule pca_km:
+    input: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv
+    output: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_gene_loadings__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf
+    jobid: 1
+    reason: Missing output files: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv; Input files updated by another job: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:20 2025]
+Finished jobid: 1 (Rule: pca_km)
+4 of 6 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:06:20 2025]
+localrule final_report:
+    input: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 6
+    reason: Missing output files: results/final_report__COAD__T_Dysfunction.pdf; Input files updated by another job: results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:22 2025]
+Finished jobid: 6 (Rule: final_report)
+5 of 6 steps (83%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 12:06:22 2025]
+localrule all:
+    input: results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/km_PC1_split__COAD__T_Dysfunction.pdf, results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 0
+    reason: Input files updated by another job: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/final_report__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 12:06:22 2025]
+Finished jobid: 0 (Rule: all)
+6 of 6 steps (100%) done
+Complete log(s): /Users/boguzhan/Desktop/tic_pipeline/.snakemake/log/2025-10-13T120448.620037.snakemake.log

@@ -1,0 +1,40 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+google_summaries         1
+pca_km                   1
+remove_outliers          1
+subset_expression        1
+total                    7
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 11:35:25 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 4
+    reason: Missing output files: results/clinical__COAD.tsv, results/expr__COAD.parquet
+    wildcards: cancer_type=COAD
+    resources: tmpdir=/tmp
+
+RuleException:
+CalledProcessError in file /app/Snakefile, line 19:
+Command 'set -euo pipefail;  /opt/conda/envs/snakemake_env/bin/python3.11 /app/.snakemake/scripts/tmpzb7z4bp_.data_loading.py' returned non-zero exit status 1.
+[Mon Oct 13 11:38:20 2025]
+Error in rule data_loading:
+    jobid: 4
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-10-13T113525.874444.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

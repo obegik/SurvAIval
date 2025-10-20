@@ -1,0 +1,72 @@
+Assuming unrestricted shared filesystem usage.
+host: QY066DPX6V.crg.es
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+pca_km                   1
+remove_outliers          1
+select_top_genes         1
+subset_expression        1
+total                    7
+
+Select jobs to execute...
+Failed to solve scheduling problem with ILP solver, falling back to greedy scheduler. You likely have to fix your ILP solver installation. Error message: PULP_CBC_CMD: Not Available (check permissions on cbc)
+Execute 2 jobs...
+[Mon Oct 13 11:57:43 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 4
+    reason: Forced execution
+    wildcards: cancer_type=COAD
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 11:57:43 2025]
+localrule select_top_genes:
+    input: data/all_scores.tsv
+    output: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    jobid: 5
+    reason: Missing output files: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+[Mon Oct 13 11:57:50 2025]
+Finished jobid: 5 (Rule: select_top_genes)
+1 of 7 steps (14%) done
+[Mon Oct 13 11:59:03 2025]
+Finished jobid: 4 (Rule: data_loading)
+2 of 7 steps (29%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Oct 13 11:59:03 2025]
+localrule subset_expression:
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+    jobid: 3
+    reason: Missing output files: results/expr_topimmune__COAD__T_Dysfunction.parquet; Input files updated by another job: results/top_immune_genes__COAD__T_Dysfunction.tsv, results/expr__COAD.parquet
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+RuleException:
+CalledProcessError in file "/Users/boguzhan/Desktop/tic_pipeline/Snakefile", line 37:
+Command 'set -euo pipefail;  /opt/miniconda3/envs/snakemake_env/bin/python3.13 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmpy1dk4sbe.subset_expression.py' returned non-zero exit status 1.
+[Mon Oct 13 11:59:04 2025]
+Error in rule subset_expression:
+    message: None
+    jobid: 3
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Mon Oct 13 11:59:04 2025]
+Error in rule subset_expression:
+    message: None
+    jobid: 3
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+Complete log(s): /Users/boguzhan/Desktop/tic_pipeline/.snakemake/log/2025-10-13T115743.146361.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

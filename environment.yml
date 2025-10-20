@@ -1,0 +1,49 @@
+name: survAIval
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  # ---- Core ----
+  - python=3.11
+  - pip
+  - snakemake=8.13.0
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - scikit-survival
+  - lifelines
+  - matplotlib
+  - seaborn
+  - plotly
+  - pyyaml
+  - mygene
+  - reportlab
+  - pdf2image
+  - poppler
+  - requests
+  - tqdm
+  - fastparquet
+  - pyarrow
+  - psutil  # <-- for system memory detection
+  - umap-learn  # <-- required for semantic clustering
+  - hdbscan     # <-- required for semantic clustering
+
+  # ---- Development Utilities ----
+  - ipykernel
+  - yaml
+  - jupyterlab
+  - rich  # pretty console logging
+  - colorama  # colored output for scripts
+
+  # ---- Pip dependencies ----
+  - pip:
+      - transformers>=4.42.0
+      - torch>=2.3.0
+      - accelerate
+      - sacremoses
+      - sentence-transformers
+      - protobuf
+      - psutil

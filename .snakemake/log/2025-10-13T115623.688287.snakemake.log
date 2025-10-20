@@ -1,0 +1,9 @@
+Assuming unrestricted shared filesystem usage.
+host: QY066DPX6V.crg.es
+Building DAG of jobs...
+MissingInputException in rule final_report in file "/Users/boguzhan/Desktop/tic_pipeline/Snakefile", line 72:
+Missing input files for rule final_report:
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    affected files:
+        results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt

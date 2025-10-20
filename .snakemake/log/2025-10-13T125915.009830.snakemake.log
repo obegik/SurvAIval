@@ -1,0 +1,114 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+google_summaries         1
+pca_km                   1
+remove_outliers          1
+select_top_genes         1
+subset_expression        1
+total                    8
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Mon Oct 13 12:59:15 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 4
+    reason: Missing output files: results/clinical__COAD.tsv, results/expr__COAD.parquet
+    wildcards: cancer_type=COAD
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 12:59:15 2025]
+localrule select_top_genes:
+    input: data/all_scores.tsv
+    output: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    jobid: 5
+    reason: Missing output files: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 12:59:35 2025]
+Finished job 5.
+1 of 8 steps (12%) done
+[Mon Oct 13 13:02:39 2025]
+Finished job 4.
+2 of 8 steps (25%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 13:02:39 2025]
+localrule subset_expression:
+    input: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    output: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/expr_topimmune_annotated__COAD__T_Dysfunction.parquet
+    jobid: 3
+    reason: Missing output files: results/expr_topimmune__COAD__T_Dysfunction.parquet; Input files updated by another job: results/expr__COAD.parquet, results/top_immune_genes__COAD__T_Dysfunction.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 13:02:43 2025]
+Finished job 3.
+3 of 8 steps (38%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 13:02:43 2025]
+localrule remove_outliers:
+    input: results/expr_topimmune__COAD__T_Dysfunction.parquet, results/clinical__COAD.tsv
+    output: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv, results/outliers__COAD__T_Dysfunction.tsv, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf
+    jobid: 2
+    reason: Missing output files: results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.pdf, results/clinical_cleaned__COAD__T_Dysfunction.tsv, results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet; Input files updated by another job: results/clinical__COAD.tsv, results/expr_topimmune__COAD__T_Dysfunction.parquet
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 13:02:48 2025]
+Finished job 2.
+4 of 8 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 13:02:48 2025]
+localrule pca_km:
+    input: results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet, results/clinical_cleaned__COAD__T_Dysfunction.tsv
+    output: results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_gene_loadings__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf
+    jobid: 1
+    reason: Missing output files: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/PC1_gene_loadings_annotated__COAD__T_Dysfunction.tsv, results/km_PC1_split__COAD__T_Dysfunction.pdf, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.pdf; Input files updated by another job: results/clinical_cleaned__COAD__T_Dysfunction.tsv, results/expr_topimmune_cleaned__COAD__T_Dysfunction.parquet
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 13:02:54 2025]
+Finished job 1.
+5 of 8 steps (62%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Oct 13 13:02:54 2025]
+localrule google_summaries:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+    jobid: 7
+    reason: Missing output files: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt; Input files updated by another job: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+RuleException:
+CalledProcessError in file /app/Snakefile, line 70:
+Command 'set -euo pipefail;  /opt/conda/envs/snakemake_env/bin/python3.11 /app/.snakemake/scripts/tmpk535y17r.gene_summary.py' returned non-zero exit status 1.
+[Mon Oct 13 13:02:55 2025]
+Error in rule google_summaries:
+    jobid: 7
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_SerpAPI__COAD__T_Dysfunction.txt
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-10-13T125915.009830.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

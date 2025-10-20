@@ -1,0 +1,68 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count
+-------------------  -------
+all                        1
+gene_summary               1
+generate_report            1
+sementic_clustering        1
+total                      4
+
+Select jobs to execute...
+
+[Mon Oct 20 15:06:43 2025]
+rule gene_summary:
+    input: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    output: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    jobid: 8
+    reason: Missing output files: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv; Updated input files: results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+/opt/miniconda3/envs/pipeline_az/bin/python3.10 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmp86dtay5g.gene_summary.py
+[Mon Oct 20 15:08:08 2025]
+Finished job 8.
+1 of 4 steps (25%) done
+Select jobs to execute...
+
+[Mon Oct 20 15:08:08 2025]
+rule sementic_clustering:
+    input: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    output: results/semantic_clusters_stable__COAD__T_Dysfunction.png
+    jobid: 7
+    reason: Input files updated by another job: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+/opt/miniconda3/envs/pipeline_az/bin/python3.10 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmpkhc71qur.sementic_clustering.py
+[Mon Oct 20 15:08:27 2025]
+Finished job 7.
+2 of 4 steps (50%) done
+Select jobs to execute...
+
+[Mon Oct 20 15:08:27 2025]
+rule generate_report:
+    input: results/km_PC1_split__COAD__T_Dysfunction.png, results/PC1_top_gene_contributors_annotated__COAD__T_Dysfunction.png, results/qc_plots/pca_outlier_detection__COAD__T_Dysfunction.png, results/semantic_clusters_stable__COAD__T_Dysfunction.png, results/top_PC1_contributor_genes__COAD__T_Dysfunction.tsv, results/outliers__COAD__T_Dysfunction.tsv, results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv
+    output: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 1
+    reason: Input files updated by another job: results/PC1_gene_summaries_HF__COAD__T_Dysfunction.tsv, results/semantic_clusters_stable__COAD__T_Dysfunction.png
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+/opt/miniconda3/envs/pipeline_az/bin/python3.10 /Users/boguzhan/Desktop/tic_pipeline/.snakemake/scripts/tmp3s_yh5u2.generate_report.py
+[Mon Oct 20 15:08:29 2025]
+Finished job 1.
+3 of 4 steps (75%) done
+Select jobs to execute...
+
+[Mon Oct 20 15:08:29 2025]
+localrule all:
+    input: results/final_report__COAD__T_Dysfunction.pdf
+    jobid: 0
+    reason: Input files updated by another job: results/final_report__COAD__T_Dysfunction.pdf
+    resources: tmpdir=/var/folders/55/00_v6_jj6_vcp7817htf4_zh0000gn/T
+
+[Mon Oct 20 15:08:29 2025]
+Finished job 0.
+4 of 4 steps (100%) done
+Complete log: .snakemake/log/2025-10-20T150642.737730.snakemake.log

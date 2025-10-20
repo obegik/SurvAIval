@@ -1,0 +1,53 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+data_loading             1
+final_report             1
+google_summaries         1
+pca_km                   1
+remove_outliers          1
+select_top_genes         1
+subset_expression        1
+total                    8
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Mon Oct 13 10:27:00 2025]
+localrule data_loading:
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+    jobid: 4
+    reason: Code has changed since last execution
+    wildcards: cancer_type=COAD
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 10:27:00 2025]
+localrule select_top_genes:
+    input: data/all_scores.tsv
+    output: results/top_immune_genes__COAD__T_Dysfunction.tsv
+    jobid: 5
+    reason: Code has changed since last execution
+    wildcards: cancer_type=COAD, metric=T_Dysfunction
+    resources: tmpdir=/tmp
+
+[Mon Oct 13 10:27:11 2025]
+Finished job 5.
+1 of 8 steps (12%) done
+RuleException:
+CalledProcessError in file /app/Snakefile, line 19:
+Command 'set -euo pipefail;  /opt/conda/envs/snakemake_env/bin/python3.11 /app/.snakemake/scripts/tmp0qq4huq6.data_loading.py' died with <Signals.SIGKILL: 9>.
+[Mon Oct 13 10:28:41 2025]
+Error in rule data_loading:
+    jobid: 4
+    output: results/expr__COAD.parquet, results/clinical__COAD.tsv
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-10-13T102700.054472.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
