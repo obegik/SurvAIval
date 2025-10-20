@@ -1,24 +1,24 @@
 # SurvAIval
 
-A lightweight **AI-driven survival analysis pipeline** integrating TCGA expression, immune metrics, and clinical data.  
+A lightweight **AI-driven survival analysis pipeline** integrating [TCGA](https://www.cancer.gov/ccg/research/genome-sequencing/tcga) expression, [TIDE](http://tide.dfci.harvard.edu/) immune metrics, and clinical data.  
 Built with **Python + Snakemake**, it demonstrates reproducible data science practices for translational oncology and biomarker discovery.
 
 ---
 
-## 🚀 Key Features
+## Key Features
 - Automated **data integration** of TCGA expression and clinical metadata  
-- **Principal Component Analysis (PCA)** and **Kaplan–Meier** stratification  
-- **AI-based gene summaries** via Hugging Face LLMs  
-- **Semantic clustering** of biological terms  
-- End-to-end **PDF report generation**
+- **Principal Component Analysis (PCA)** and **Kaplan–Meier** survival stratification  
+- **AI-based gene summaries** using Hugging Face large language models  
+- **Semantic clustering** of gene functions and biological terms  
+- Fully automated **PDF report generation** with integrated visualizations
 
 ---
 
-## 🧩 Workflow Overview
+##  Workflow Overview
 ```mermaid
 graph TD
-    A[Data Loading] --> B[Immune Gene Selection]
+    A[Data Loading (TCGA)] --> B[Immune Gene Selection (TIDE)]
     B --> C[PCA & Survival Analysis]
-    C --> D[AI Gene Summaries]
+    C --> D[AI Gene Summaries (Hugging Face)]
     D --> E[Semantic Clustering]
     E --> F[Final PDF Report]
