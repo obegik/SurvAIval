@@ -22,3 +22,12 @@ graph TD
     C --> D[AI Gene Summaries,Hugging Face]
     D --> E[Semantic Clustering]
     E --> F[Final PDF Report]
+
+---
+## Quick Start
+
+```bash
+conda env create -f environment.yml
+conda activate survAIval
+snakemake --cores 4
+'''
