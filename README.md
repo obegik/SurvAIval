@@ -19,6 +19,6 @@ Built with **Python + Snakemake**, it demonstrates reproducible data science pra
 graph TD
     A[Data Loading, TCGA] --> B[Immune Gene Selection, TIDE]
     B --> C[PCA & Survival Analysis]
-    C --> D[AI Gene Summaries (Hugging Face)]
+    C --> D[AI Gene Summaries,Hugging Face]
     D --> E[Semantic Clustering]
     E --> F[Final PDF Report]
