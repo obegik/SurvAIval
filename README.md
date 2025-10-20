@@ -55,10 +55,8 @@ outlier_z_threshold: 3       # PCA z-score cutoff for outlier removal
 ##  Data Sources & References
 
 This pipeline integrates open-access datasets and resources:
-	•	TCGA Pan-Cancer Atlas — RNA-seq expression and clinical data from the UCSC Xena Data Portal
-	•	Goldman et al., Cell 2020. DOI: 10.1016/j.cell.2020.02.010
-	•	TIDE (Tumor Immune Dysfunction and Exclusion) — immune dysfunction metrics used for stratification
-	•	Jiang et al., Nature Medicine 2018. DOI: 10.1038/s41591-018-0136-1
+-  TCGA Pan-Cancer Atlas — RNA-seq expression and clinical data from the UCSC Xena Data Portal (Goldman et al., Cell 2020. DOI: 10.1016/j.cell.2020.02.010)
+-  TIDE (Tumor Immune Dysfunction and Exclusion) — immune dysfunction metrics used for stratification (Jiang et al., Nature Medicine 2018. DOI: 10.1038/s41591-018-0136-1)
 
     
 ##  Methods Summary
