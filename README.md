@@ -23,11 +23,13 @@ graph TD
     D --> E[Semantic Clustering]
     E --> F[Final PDF Report]
 
----
-## Quick Start
+```
+
+
+##  Quick Start
 
 ```bash
 conda env create -f environment.yml
 conda activate survAIval
 snakemake --cores 4
-'''
+```
