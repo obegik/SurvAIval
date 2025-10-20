@@ -17,7 +17,7 @@ Built with **Python + Snakemake**, it demonstrates reproducible data science pra
 ##  Workflow Overview
 ```mermaid
 graph TD
-    A[Data Loading (TCGA)] --> B[Immune Gene Selection (TIDE)]
+    A[Data Loading, TCGA)] --> B[Immune Gene Selection, TIDE]
     B --> C[PCA & Survival Analysis]
     C --> D[AI Gene Summaries (Hugging Face)]
     D --> E[Semantic Clustering]
